@@ -1,0 +1,33 @@
+
+<div class = "geo-container">
+  <mat-label> ID:</mat-label>
+  <input matInput placeholder = "Enter Values between 1 to 10"ype="text"  [formControl]="geoID"  required>
+    <mat-error *ngIf="geoID.errors?.pattern"> ID is not valid please select ID between 1-10</mat-error>
+  <button mat-raised-button color="primary"  *ngIf="geoID.status=='VALID'" (click) = getGeoData(geoID.value)> SUBMIT</button>
+</div>
+
+
+<div *ngIf="geoID.status=='VALID'">
+  <table mat-table  [dataSource]="geoData" class="mat-elevation-z8">
+      <ng-container matColumnDef = "name">
+        <th mat-header-cell *matHeaderCellDef> company name</th>
+        <td mat-cell *matCellDef = "let element"> {{element.company.name |json}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef = "latitude">
+        <th mat-header-cell *matHeaderCellDef> latitude</th>
+        <td mat-cell *matCellDef = "let element"> {{element.address.geo.lat}} </td>
+      </ng-container>
+      <ng-container matColumnDef = "longitude" >
+        <th mat-header-cell *matHeaderCellDef> Longitude</th>
+        <td mat-cell *matCellDef = "let element"> {{element.address.geo.lng}} </td>
+      </ng-container>  
+   <tr mat-header-row *matHeaderRowDef = "tableColumns"></tr>
+   <tr mat-row *matRowDef = "let row; columns: tableColumns;"></tr>
+  </table>
+  
+
+
+
+  
+
